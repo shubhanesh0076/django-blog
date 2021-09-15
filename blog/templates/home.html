@@ -1,0 +1,100 @@
+{% extends 'basic2.html' %}
+ {% block title %}
+    <title> Home Page </title>
+{% endblock title %}
+
+{% block css%} 
+
+<style>
+  .card-body img{width: 40px;height: 40px;border-radius: 30px;border:1px solid green;padding:2px;}
+  .card-body .user-name{padding-left: 10px;}
+  .card-body .user-img{text-decoration: none;text-transform: capitalize;}
+  .card-body .card-title{padding:8px 0px}
+  .card-body .text-dark{text-decoration: none;}
+  .img-fluid{height: 100%; width: 100%;}
+</style>
+  
+
+{%endblock%}
+
+{% block body %}
+{%  load static %}
+{% for message in messages %}
+    <div id="alert" class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+      {{ message }}.
+      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">
+      </button>
+    </div>
+{% endfor %}
+<script>
+var message_ele = document.getElementById("alert");
+setTimeout(function(){ 
+   message_ele.style.display = "none"; 
+}, 3000);
+</script> 
+
+
+<div class="container my-3">
+ <!--   <div class="jumbotron p-3 p-md-5 text-white rounded bg-dark"> -->
+       <!-- <img src="/static/img/blogimage.jpg" style='width:100%;height:530px;'>    -->
+
+       <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
+        <div class="carousel-inner">
+          <div class="carousel-item active">
+            <img src="/static/img/blogimage.jpg" class="d-block w-100" style='width:100%;height:500px' alt="first">
+          </div>
+          <div class="carousel-item">
+            <img src="/static/img/blog.jpg" class="d-block w-100" style='width:100%;height:500px' alt="second">
+          </div>
+          <div class="carousel-item">
+            <img src="/static/img/our-blog-1.jpg" class="d-block w-100" style='width:100%;height:500px' alt="third">
+          </div>
+        </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
+          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
+          <span class="carousel-control-next-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Next</span>
+        </button>
+      </div>
+
+
+    <!--    </div> -->
+
+</div>
+
+{% for post in posts %}
+<div class="container my-4">
+
+<div class="row">
+ <div class="col-lg-8 col-md-8 col-sm-12">
+  <div class="card mb-3">
+    <div class="row g-0"> 
+      <div class="col-md-8">
+        <div class="card-body">
+          <a target="_block" class="user-img">
+            <a href="/publicuserprofile/{{post.user_id.id}}"><b> <img src="/static/img/user.png" alt="{{ post.user_id.username }}" title="Posted by {{ post.user_id.username}}" /></b></a><span class="user-name">{{post.user_id.username}}</span>
+          </a>
+          <h5 class="card-title"><a class="text-dark" href="https://www.google.com/{{post.title}}">{{ post.title }}</a></h5>
+          <p class="card-text">{{ post.content|safe|truncatewords:"15"|linebreaks}}</p>
+         <b> <p class="card-text"><small class="text-muted">{{post.created_on|date:"M d Y"}}</small></p></b>
+          <a href="{% url 'detail_view' post.slug %}" class="btn btn-success" type="button">Detail View...</a>
+        </div>
+      </div>
+      <div class="container col-md-4">
+       <a href="{% url 'detail_view' post.slug %}"> <img src="{{post.thumbnailimg.url}}" class="img-fluid rounded-start" alt="{{post.title}}"> </a>
+      </div>
+    </div>
+  </div>
+ </div> 
+   
+</div>
+
+</div>
+
+
+{% endfor %} 
+
+{% endblock %}

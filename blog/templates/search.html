@@ -1,0 +1,107 @@
+{% extends 'basic.html' %}
+ {% block title %}
+    <title> Search </title>
+{% endblock title %}
+
+{% block css%}
+<style>
+  .search-title {
+    font-size: 30px;
+    line-height: 24px;
+    background-color: #f3f7f8;
+    border: 1px solid #3ac39a;
+    height: 67px;
+    width: 800px;
+    margin: 146px 0 83px;
+    border-radius: 50px;
+}
+.search-title{display: block; margin-left: auto; margin-right: auto;}
+.search-title span.search {
+    background-color: #3ac39a;
+    color: white;
+    padding: 21.3px 53px;
+    position: relative;
+    margin-right: 126px;
+    word-spacing: 0px;
+    display: inline-block;
+    border-radius: 64px 64px 64px 64px;
+    }
+  .searched-count {
+    display: block;
+    font-size: 25px;
+    color: gray;
+    padding-top: 25px;
+    margin-left: 40px;
+  }
+
+  .container{  height: 40% }
+
+/* .row{
+    --bs-gutter-x: 11rem;
+    --bs-gutter-y: 0;
+    } */
+
+.td-title{display: block;margin-left:0;}
+.blog-section .card{width: 100%;max-width: 100%;}
+.blog-section .card .card-img{height: 200px;}
+.title1{float: left;}
+.date1{float: right;}
+</style>
+{%  endblock %}
+
+
+{% block body %}
+
+<div class="container">
+    {% comment %} <h1>{{posts|length}} Search result:-</h1> {% endcomment %}
+
+    <div class="search-title">
+      <span class="search">Search</span>
+      <span class="searched-item">{{search}}</span>
+      {% if posts|length > 1%}
+        <span class="searched-count">{{posts|length}} results</span>
+      {% else %}
+        <span class="searched-count">{{posts|length}} result</span>
+      {% endif %}
+    </div>
+
+<div>
+{% if posts|length < 1%}
+    <p>No search result...</p>
+
+{% endif %}
+
+
+
+<section class="blog-section">  
+  <div class="container">
+    <div class="row text-center pt-4 text-dark">
+      <div class="text-center col-md-12">
+        <h2 class="pt-4 mb-4">Posts:-</h2>
+        <hr>
+      </div> 
+      {% for post in posts%}
+      <div class = "col-lg-4 col-md-4 col-sm-12 col-12 mb-5">
+        <div class="card">
+          <a href="{% url 'detail_view' post.slug %}">
+            <img src="{{ post.thumbnailimg.url}}" class="card-img" alt="{{post.title}}">
+          </a>
+            <div class="card-body">
+              <div class="card-title">
+                  <div class="title_div" style="font-size: 18px"><center><h6>{{post.title}}</h6></center></div>
+                  <span class="title1" style="margin-left: 0;">{{post.category|capfirst}}</span>
+                  <span class="date1" style="margin-right: 0;">{{post.created_on|date:"M, d, Y"}}</span>
+              </div>
+              <!-- <a href="detail_view/{{post.id}}" class="btn btn-success">Detail view...</a> -->
+            </div>
+        </div>    
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+</div>
+
+{% endblock body %}
+

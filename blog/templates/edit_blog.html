@@ -1,0 +1,31 @@
+{% extends 'basic.html' %} 
+{% block title %} <title>Edit Blog</title> {% endblock title %} 
+
+{% block body %}
+
+{% for message in messages %}
+    <div id="alert" class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+      {{ message }}.
+      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">
+      </button>
+    </div>
+{% endfor %}
+<script>
+var message_ele = document.getElementById("alert");
+setTimeout(function(){ 
+   message_ele.style.display = "none"; 
+}, 3000);
+</script> 
+  
+<div class="edit_form text-center"><h1>Edit Blog</h1></div>
+<div class="container text-dark pt-4">
+  <form class = "form-group" method="POST" enctype="multipart/form-data">
+    {% csrf_token %}  
+    {{form.media}}
+    {{edit_blog.as_p}}
+    <button class="btn btn-success mb-5" type="submit">Edit</button>
+    
+  </form>
+</div>
+
+{% endblock body %} 

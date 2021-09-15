@@ -1,0 +1,233 @@
+<!-- import the basic.hmtl file -->
+{% extends 'basic.html' %}
+<!-- end here basic.html file -->
+
+
+<!-- title start over here... -->
+{% block title%}   <title>Blog Site</title>{%endblock title%}
+<!-- title end over here..... -->
+
+<!-- css start over here.... -->
+{% block css %}
+
+<style>
+  #carouselExampleCaptions{height: calc(100% - 30px);}
+  .carousel-item img{height: 550px;}
+  .card-section{margin-top: -100px;position: relative;width: 100%;}
+  .btn{text-align: center;}
+  .line{color: darkgreen;}
+  .card-img-top { border-radius: 100%;width: 230px;height: 230px;display: block; margin: 0 auto;}
+  .carousel-indicators {display: none;}
+  .line{color: green; }
+  .container{  height: 40% }
+  .title1{margin-left:-82px;}
+
+  .blog-section .card{width: 100%;max-width: 100%; box-shadow: 3px 3px 3px grey;-webkit-transitions:  box-shadow .8s ease-out;box-shadow: .10px .11px 5px grey;}
+  .card:hover{ box-shadow: 3px 10px 22px grey;-webkit-transitions:  box-shadow .8s ease-in;}
+  .blog-section .card .card-img{height: 200px;}
+
+  .title1{float: left;}
+  .date1{float: right;}
+
+</style>
+
+{%  endblock css%}
+<!-- css end over here..... -->
+
+
+
+<!-- body block start over here.............. -->
+{% block body%}
+{%  load static %}
+ 
+{% for message in messages %}
+    <div id="alert" class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+      {{ message }}.
+      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">
+      </button>
+    </div>
+{% endfor %}
+<script>
+var message_ele = document.getElementById("alert");
+setTimeout(function(){ 
+   message_ele.style.display = "none"; 
+}, 3000);
+</script>
+
+
+<!-- ..................carousel start over here................................................. -->
+<div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="carousel">
+    <div class="carousel-indicators">
+      <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+      <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="1" aria-label="Slide 2"></button>
+      <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="2" aria-label="Slide 3"></button>
+    </div>
+    <div class="carousel-inner">
+      <div class="carousel-item active">
+        <img src="/static/img/bannerimg1.png" class="d-block w-100" height="100%" alt="First Slide">
+        <div class="carousel-caption d-none d-md-block">
+          <!-- <h5>First slide label</h5>
+          <p>Some representative placeholder content for the first slide.</p>
+ -->        </div>
+      </div>
+      <div class="carousel-item">
+        <img src="/static/img/bannerimg2.png" class="d-block w-100 " height=100% alt="Second Slide">
+        <div class="carousel-caption d-none d-md-block">
+          <!-- <h5>Second slide label</h5>
+          <p>Some representative placeholder content for the second slide.</p> -->
+        </div>
+      </div>
+      <div class="carousel-item">
+        <img src="/static/img/bannerimg3.png" class="d-block w-100 " height=100% alt="Third Slide">
+        <div class="carousel-caption d-none d-md-block">
+         <!--  <h5>Third slide label</h5>
+          <p>Some representative placeholder content for the third slide.</p> -->
+        </div>
+      </div>
+      <div class="show-popup">
+        <span class="popuptext" id="myPopup">Popup text...wefwefwef wegwegwgf </span>
+      </div>
+    </div>
+    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="prev">
+      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Previous</span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="next">
+      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Next</span>
+    </button>
+  </div>
+  <!-- .................................carousel end over here....................................... -->
+
+<!--   this is carousel -->
+
+<div class="clear"></div>
+
+
+
+<!-- ...............................................card start over here.............................. -->
+<section class="card-section text-center">
+<div class="container">
+  <div class="row text-dark">
+
+    <div class="col-lg-4" >
+        <a href="/static/img/apj.png"><img src="/static/img/apj.png" class="card-img-top" alt="kalamsirimage"></a>
+        <div class="card-body">
+          <h5 class="card-title" >Dr. A.P.J Abdul Kalam</h5>
+          <p class="card-text">Kerala Opens Museum Dedicated to Dr.A.P.J.Abdul Kalam - First of its kind in South India. Kerala gave a fitting tribute...</p>
+          <a href="http://www.abdulkalam.com/kalam/theme/jsp/guest/index.jsp" class="btn btn-success" target="_blank">Detail View...</a>
+        </div>
+      </div>
+    
+      <div class="col-lg-4" >
+        <a href="/static/img/einstein.png"><img src="/static/img/einstein.png" class="card-img-top" alt="einstein"></a>
+        <div class="card-body">
+          <h5 class="card-title">Albert Einstein</h5>
+          <p class="card-text">In the arena of scientific achievement and the quest to discover genius, Albert Einstein stands alone. He remains...</p>
+          <a href="https://evernote.com/blog/einsteins-unique-approach-to-thinking/" class="btn btn-success" target="_blank">Detail View...</a>
+        </div>
+      </div>
+      <div class="col-lg-4">
+        <a href="/static/img/stephen.png"><img src="/static/img/stephen.png" class="card-img-top" alt="stephen"></a>
+        <div class="card-body">
+          <h5 class="card-title">Stephen Hawking</h5>
+          <p class="card-text">According to the Boshongo people of central Africa, in the beginning, there was only darkness, water, and the great...</p>
+          <a href="https://fs.blog/2015/05/stephen-hawking-explains-origin-universe/" class="btn btn-success" target="_blank">Detail View...</a>
+        </div>
+      </div>
+      </div>
+    </div>
+ </section>
+ 
+ <!-- .......................................card end over here.......................................... -->
+
+<div class="clear"></div>
+
+
+<!-- ...............................cards for posts start over here........................................ -->
+<section class="blog-section">  
+  <div class="container">
+    <div class="row text-center pt-4 text-dark">
+      <div class="text-center col-md-12">
+        <h2 class="pt-4 mb-4">Posts:-</h2>
+        <hr>
+      </div> 
+      {% for post in posts%}
+      <div class = "col-lg-4 col-md-4 col-sm-12 col-12 mb-5">
+        <div class="card">
+          <a href="{% url 'detail_view' post.slug %}">
+            <img src="{{ post.thumbnailimg.url}}" class="card-img" alt="{{post.title}}">
+          </a>
+            <div class="card-body">
+              <div class="card-title">
+                  <div class="title_div" style="font-size: 18px"><center><h6>{{post.title|capfirst}}</h6></center></div>
+                  <!-- <span class="title1" style="margin-left: 0;">{{post.title_tag}}</span> -->
+                  <span class="title1" style="margin-left: 0;">{{post.category|capfirst}}</span>
+                  <span class="date1" style="margin-right: 0;">{{post.created_on|date:"M, d, Y"}}</span>
+              </div>
+              <!-- <a href="detail_view/{{post.id}}" class="btn btn-success">Detail view...</a> -->
+            </div>
+        </div>    
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+
+
+
+  
+
+    <!-- .................................cards for posts end over here.................................. -->
+
+
+
+    <!-- .................................card and paragraph start over here................... -->
+    <section>    
+      <div class="container-fluid ">
+      <div class="row pt-5 mb-5">
+        <div class = "col-lg-6 col-md-6 col-12">
+          <img src="static/img/collegedisha.png" class="img-fluid w-100 h-auto" alt="Blog Image">    
+        </div>
+        <div class = "col-lg-6 col-md-6 col-12">
+          <h3 class="text-dark">About College Disha...!</h3>
+          <hr>
+          <p class="pt-3 text-dark">
+            College Disha has been created to enhance the quality of your college admissions by providing valuable advice to suit your needs. We will guide you with end to end counselling and mentoring and help you achieve your passion. Education is a difficult world to navigate and we make sure that you tread this path with more academic visibility and a spirit of enjoyment.
+            Our main objective is to provide you targeted information on college counselling, admission notifications, courses, scholarship programs and fee structures of various colleges. We are a unique repository and guidance bureau of data rich college education information who will help you to explore the best possible career opportunities.
+          </p>
+          <a href="https://www.collegedisha.com/about" class="btn btn-success text-white">Read more...</a>
+
+        </div>
+
+      </div>
+      </div>
+      </section>
+      <!-- ................................card and paragraph ends over here.................. -->
+    
+
+      <!-- contact silde start..... -->
+      <section class="bg-success mb-5 container">
+        <artical class="text-center py-5">
+          <div>
+            <h3 class="display-6">+91-7078924468</h3>
+            <p>For creating blog or site contact us...!</p>
+
+            <!-- Button trigger modal start-->
+            <a href="{% url 'contactus' %}" type="button" class="btn btn-dark text-white mb-2" >
+              Contact Us
+            </a>
+            <!-- Button trigger modal end -->
+
+            </div>
+        </artical>
+      </section>
+      <!-- contact slide end over here............ -->
+
+{%   endblock body%}
+
+
+<!--    block body end over here....................................... -->
+
+

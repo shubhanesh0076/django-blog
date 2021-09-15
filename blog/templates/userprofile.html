@@ -1,0 +1,370 @@
+{% extends 'basic.html' %}
+{% load crispy_forms_tags %}
+{% block title %}
+    <title>User Profile</title>
+{% endblock %}
+
+{% block css %}
+<style>
+*{margin: 0;padding: 0;box-sizing: border-box;}
+body{height: 100vh;width: 100%;}
+body {background-color: hsl(0, 47%, 96%);}
+.profile-bg-img{width: 100%;height: 450px;border-radius: 0px 0px 25px 26px;display: block;margin: 0 auto;}
+.clint-section{margin-top: -100px;z-index: 99;position: relative;}
+.card-img-top{border-radius: 100%;height: 200px;width: 200px;display: block;margin: auto;object-fit: cover;}
+.user-profile{display: block;margin: -75px auto;}
+.fa{font-size: 25px;width: 38px;}
+h1{font-family: sans-serif;text-align: center;font-size: 30px;color: #222;}
+.usr-profile-img{height: 250px;width: 250px;position: absolute;top: 61%;left: 25%;transform: translate(-50%,-50%);border-radius: 50%;overflow: hidden;border: 2px solid grey;}
+
+#photo{height: 100%; width: 100%;}
+#file{display: none;}
+#uploadBtn{height: 40px;width: 24%;position: absolute;bottom: 19px;left: 35%;border-radius: 7px;transform: translateX(19%);text-align: center;background: rgba(0, 0, 0, 0.7);color: wheat;line-height: 30px;font-family: sans-serif;font-size: 15px;cursor: pointer;display: none;}
+#bannerfile{display: none;}
+#banneruploadBtn{height: 58px;display: block;width: 10%;margin-top: 0px;position: absolute;bottom: 19px;left: 83%; border-radius: 7px;transform: translateX(19%);text-align: center;background: rgba(0, 0, 0, 0.7);color: wheat;line-height: 30px;font-family: sans-serif;font-size: 15px;cursor: pointer;margin-top: 0px;}
+
+.grid {position: relative;width: 100%;background: #fff;color: #666666;border-radius: 2px;margin-bottom: 25px;box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.1);}
+.grid .grid-header {position: relative;border-bottom: 1px solid #ddd;padding: 15px 10px 10px 20px;}  
+.grid .grid-header:before,
+.grid .grid-header:after {display: table;content: " ";} 
+.grid .grid-header:after {clear: both;}  
+.grid .grid-header span {padding: 0 5px;}
+.grid .grid-header > .fa {padding: 5px 10px 0 0;}
+.grid .grid-header > .grid-tools {padding: 4px 10px;}
+.grid .grid-header > .grid-tools a {color: #999999;padding-left: 10px;cursor: pointer;}
+.grid .grid-header > .grid-tools a:hover {color: #666666;} 
+.grid .grid-body {padding: 15px 20px 15px 20px;font-size: 0.9em;line-height: 1.9em;}
+.grid .full {padding: 0 !important;}
+.grid .transparent {box-shadow: none !important;margin: 0px !important;border-radius: 0px !important;}
+.grid.top.black > .grid-header {border-top-color: #000000 !important;}
+.grid.bottom.black > .grid-body {border-bottom-color: #000000 !important;}
+.grid.top.blue > .grid-header {border-top-color: #007be9 !important;}
+.grid.bottom.blue > .grid-body {border-bottom-color: #007be9 !important;}
+.grid.top.green > .grid-header {border-top-color: #00c273 !important;}
+.grid.bottom.green > .grid-body {border-bottom-color: #00c273 !important;}
+.grid.top.purple > .grid-header {border-top-color: #a700d3 !important;}
+.grid.bottom.purple > .grid-body {border-bottom-color: #a700d3 !important;}
+.grid.top.red > .grid-header {border-top-color: #dc1200 !important;}
+.grid.bottom.red > .grid-body {border-bottom-color: #dc1200 !important;}
+.grid.top.orange > .grid-header {border-top-color: #f46100 !important;}
+.grid.bottom.orange > .grid-body {border-bottom-color: #f46100 !important;}
+.grid.no-border > .grid-header {border-bottom: 0px !important;}
+.grid.top > .grid-header {border-top-width: 4px !important;border-top-style: solid !important;}
+.grid.bottom > .grid-body {border-bottom-width: 4px !important;border-bottom-style: solid !important;}
+.popup-gallery a img {margin: 2px 0;}
+.popup-gallery a img:hover {opacity: 0.6;filter: alpha(opacity=60);}
+    
+.card-title .title1{float: left;}
+.card-title .date1{float: right;}
+.card{width: 100%;max-width: 100%;}
+.card .card-img{height: 160px;}
+
+.profile nav{width: 100%;}
+.profile nav ul{list-style-type: none;margin:0px;padding:0px;}
+.profile nav ul li{display: inline-block;list-style-type: none;}
+.profile nav ul li.update_btn{float: right;}
+
+.nav-tabs li.active{border-bottom: 4px solid #198754;position: relative;background: #198754;}
+.nav-tabs li.active a{color: #fff;}
+.nav-tabs li a:focus{outline: none;box-shadow: none;}
+
+</style>
+{% endblock %}
+
+{% block body%}
+
+<!-- start profile background image -->
+    
+<div class="banner-section" id="carouselExampleCaptions">
+ <div  class="container">
+  <div class="carousel-inner">
+   <div class="carousel-item active">
+   <img src="{{user.userprofile.userbannerimage.url}}" class="profile-bg-img" alt="userbannerimage">
+    <input type="file" id="bannerfile" name="userbannerimage">
+    <label for="file" id="banneruploadBtn">
+      <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#bannerimgModal">
+        <i class="fa fa-camera" style="margin:block; margin-top: 5px;font-size:35px; width:85px"></i>
+      </button>
+    </label>
+   </div>
+  </div>
+ </div>
+</div>
+<!-- end profile background image -->
+
+
+<div class="clear"></div><!-- clear end here -->
+
+<!-- user profile pic-->
+<div class="usr-profile-img">
+  <a href="{{user.userprofile.userprofileimg.url}}"><img src="{{user.userprofile.userprofileimg.url}}" id="photo" name="userprofileimg"></a>
+  <input type="file" id="file" name="userprofileimg">{{user.userprofile.userprofileimg.url}}
+  <label for="file" id="uploadBtn">
+    <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#exampleModal">
+      <i class="fa fa-camera" style="margin:block; margin-top: 6px;"></i>
+    </button>
+  </label>
+</div>
+
+<!-- user profile pic end-->
+
+
+
+<div class="profile-tabs-section">
+  <div class="container bootstrap snippets bootdey mt-4" sytle="border-radius: 45px;">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="grid profile">   
+                <div class="grid-body">
+                  <nav>
+                    <ul class="nav-tabs">
+                        <li class="active"><a class="btn" href="#profile" data-toggle="tab">Profile</a></li>
+                        <li><a class="btn" href="#timeline" data-toggle="tab">Your Posts</a></li>
+                        <li><a class="btn" href="#educationandemployment" data-toggle="tab">Education And Employment</a></li>
+                        <li><a class="btn" href="#contactinfo" data-toggle="tab">Contact Info</a></li>
+                        <li><a class="btn" href="#socialmedia" data-toggle="tab">Social Media Info</a></li>
+                        <li><a class="btn" href="#about" data-toggle="tab">About</a></li>
+                        <li><a class="btn" href="{% url 'profileinfoform' %}" class="build mx-4">Update Profile</a></li>
+                        
+                      </ul>
+                    </nav>
+                    <div class="tab-content">
+                        <!-- BEGIN PROFILE -->
+                      
+                        <div class="tab-pane active" id="profile">
+                            <p class="lead pt-2">Hello, {{request.user.username}}</p>
+                            <hr>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <p><strong>Email:</strong> <a href="soengsouy.com">{{request.user.email}}</a></p>
+                                    <p><strong>First Name: </strong> {{request.user.first_name}}</p>
+                                    <p><strong>Last Name: </strong> {{request.user.last_name}}</p>
+                                    <p><strong>Date of  Birth(DOB):</strong> {{profileinfoform.dob}}</p>
+                                    <p><strong>Gender: </strong>{{profileinfoform.gender}}</p>
+                                    <p><strong>Joined on: </strong>{{profileinfoform.updated_on}}</p>
+                                    <p><strong>Hobbies:</strong>{{profileinfoform.hobbies}}</p>
+                                    <!-- <p><strong>Skills:</strong> <span class="label label-primary">HTML</span>, <span class="label label-primary">CSS</span>, <span class="label label-primary">PHP Laravel</span>, <span class="label label-primary">JQUERY</span>, <span class="label label-primary">AJAX</span>, <span class="label label-primary">PHP</span>, <span class="label label-primary">RUBY</span>, <span class="label label-primary">PHYTON</span>, <span class="label label-primary">C</span></p> -->
+                                </div>
+                                <div class="col-md-6">
+                                    <p><strong>Country: </strong> {{profileinfoform.country}}</p>
+                                    <p><strong>State: </strong>{{profileinfoform.state}}</p>
+                                    <p><strong>City/Village: </strong>{{profileinfoform.city}}</p>
+                                    <p><strong>Address:</strong>{{profileinfoform.address}}</p>
+                                    <p><strong>Pincode:</strong>{{profileinfoform.pincode}}</p>
+                                    <p><strong>Phone:</strong> (+91) {{profileinfoform.phoneno1}}</p>
+                                </div>
+                            </div>
+                        </div>
+          
+                    <!-- END PROFILE -->
+
+                    <!-- BEGIN TIMELINE -->
+                    <div class="tab-pane" id="timeline">
+                        <p class="lead">Your Posts ({{user_posts.count}})</p>
+                        <hr>
+                        <div class="container">
+                          <div class="row  text-dark">
+                            <div class="text-center col-md-12">
+                              <h2 class="pt-4 mb-4">Posts:-</h2>
+                              <hr>
+                            </div> 
+                            {% for post in user_posts%}
+                            <div class = "col-lg-4 col-md-4 col-sm-12 col-12 mb-5">
+                              <div class="card">
+                                <a href="{% url 'detail_view' post.slug %}">
+                                  <img src="{{ post.thumbnailimg.url}}" class="card-img" alt="{{post.title}}">
+                                </a>
+                                  <div class="card-body">
+                                    <div class="card-title" style="margin-top: auto;">
+                                        <div><h6><center>{{post.title}}</center></h6></div>
+                                        <span class="title1" style="margin-left: 0;">{{post.category|capfirst}} </span>
+                                        <span class="date1" style="margin-right: 0;">{{post.created_on|date:"M ,d ,Y"}}</span>
+                                    </div>
+                                  </div>
+                              </div>    
+                            </div>
+                            {% endfor %}
+                          </div>
+                        </div>   
+                    </div>
+                <!-- END TIMELINE -->
+
+                    <!-- EDUCATION AND EMPLOYMENT START -->
+                    <div class="tab-pane" id="educationandemployment">
+                      <p class="lead pt-2" >Education And Employment</p>
+                      <hr>
+                      <div class="row">
+                        <div class="col-md-6">
+                          <h4>Education </h4>
+                            <div class="graduation">
+                              <div><h6>Education(Graduation): </h6></div>
+                              <p><strong>College/University: </strong>{{profileinfoform.university}}</p>
+                              <div class="row">
+                                <div class="col-md-6">
+                                  <p><strong>Start Date:</strong>{{profileinfoform.startdate}}</p>
+                                </div>
+                                <div class="col-md-6">
+                                  <p><strong>End Date:</strong>{{profileinfoform.completiondate}}</p>
+                                </div>
+                              </div>
+                              <p><strong>City: </strong>{{profileinfoform.unicity}}</p>
+                            </div>
+                            <div class="12_class">
+                              <div><h6>Education(12th): </h6></div>
+                                <p><strong>College: </strong>{{profileinfoform.college}}</p>
+                                <div class="row">
+                                  <div class="col-md-6">
+                                    <p><strong>Start Date:</strong>{{profileinfoform.collegestartdate}}</p>
+                                  </div>
+                                  <div class="col-md-6">
+                                    <p><strong>End Date:</strong>{{profileinfoform.collegecompletiondate}}</p>
+                                  </div>
+                                </div>
+                                <p><strong>City: </strong>{{profileinfoform.collegecity}}</p>
+                              </div>
+                              <div class="10_class">
+                                <div><h6>Education(10th): </h6></div>
+                                <p><strong>School: </strong>{{profileinfoform.school}}</p>
+                                <div class="row">
+                                  <div class="col-md-6">
+                                    <p><strong>Start Date:</strong>{{profileinfoform.startdate}}</p>
+                                  </div>
+                                  <div class="col-md-6">
+                                    <p><strong>End Date:</strong>{{profileinfoform.schoolcompletiondate}}</p>
+                                  </div>
+                                </div>
+                                <p><strong>City: </strong>{{profileinfoform.schoolcity}}</p>
+                              </div>
+                        </div>
+                        <div class="col-md-6">
+                          <h4>Employment </h4>
+                          <p><strong>Company Name:</strong>{{profileinfoform.company}}</p>
+                          <p><strong>Experience: </strong> {{profileinfoform.experience}} year</p>
+                          <p><strong>City: </strong> {{profileinfoform.companycity}}</p>
+                          <p><strong>Technical Skills: </strong>{{profileinfoform.technicalskills}}</p>
+                        </div>
+                      </div>
+                    </div>
+                    <!-- EDUCATION AND EMPLOYMENT END -->
+
+                    <!-- CONTACT INFORMATION STRT  -->
+                    <div class="tab-pane" id="contactinfo">
+                      <p class="lead pt-2" >Contact</p>
+                      <hr>
+                      <div class="row">
+                        <p><strong><i class="fa fa-envelope"></i></strong> {{request.user.email}}</p>
+                        <p><strong><i class="fa fa-phone"></i> </strong>{{profileinfoform.phoneno2}}</p>
+                        <p><strong><i class="fa fa-map-marker"></i></strong>{{profileinfoform.address}}</p>
+                        <p><strong><i class="fa fa-browser"></i> </strong>{{profileinfoform.website}}</p>
+                      </div>
+                    </div>
+                    <!-- CONTACT INFORMATION END -->
+
+                    <!-- SOCIAL MEDIA START  -->
+                    <div class="tab-pane" id="socialmedia">
+                      <p class="lead pt-2" >Social Media</p>
+                      <hr>
+                      <div class="row">
+                        <p><strong><i class="fa fa-facebook"></i> </strong>{{profileinfoform.facebook}}</p>
+                        <p><strong><i class="fa fa-twitter"></i> </strong>{{profileinfoform.twitter}}</p>
+                        <p><strong><i class="fa fa-youtube"></i> </strong>{{profileinfoform.youtube}}</p>
+                        <p><strong><i class="fa fa-linkedin"></i> </strong>{{profileinfoform.linkedin}}</p>
+                      </div>
+                    </div>
+                    <!-- SOCIAL MEDIA START -->
+
+                    <!-- ABOUT START -->
+                    <div class="tab-pane" id="about">
+                      <p class="lead pt-2" >About</p>
+                      <hr>
+                      <div class="row">
+                        <p><strong>About: <br></strong> {{profileinfoform.about}} .</p>
+                      </div>
+                    </div>
+                    <!-- ABOUT END -->
+
+                <!-- BEGIN SETTINGS -->
+                <!-- <div class="tab-pane" id="settings">
+                    <p class="lead pt-2" >Update Profile</p>
+                    <hr>
+                    <div class="row">
+                      <a href="{% url 'profileinfoform' %}" class="build mx-4">Update Profile</a>
+                    </div>
+                </div> -->
+                <!-- END SETTINGS -->
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- END USER PROFILE -->
+   </div>
+  </div>
+</div>
+
+<script src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
+<script src="http://netdna.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+<script type="text/javascript">
+
+  // script for profile pic
+  //if user hover on img div 
+const imgDiv = document.querySelector('.usr-profile-img');
+imgDiv.addEventListener('mouseenter', function(){
+    uploadBtn.style.display = "block";
+});
+
+//if we hover out from img div
+
+imgDiv.addEventListener('mouseleave', function(){
+    uploadBtn.style.display = "none";
+});
+	
+</script>
+
+<!-- Modal for uploadin image-->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Upload Profile Image</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form action="" method="POST" enctype="multipart/form-data">
+           {%csrf_token%}
+            {{profileimg_form|crispy}}
+            <button type='submit' class="btn btn-success mt-3">Upload</button>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- End modal for uploadin image-->
+
+<!--Modal for banner image start -->
+<div class="modal fade" id="bannerimgModal" tabindex="-1" aria-labelledby="bannerimgModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="bannerimgModalLabel">Upload Backgroung Image</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form action="" method="POST" enctype="multipart/form-data">
+           {%csrf_token%}
+            {{bannerimg_form|crispy}}
+            <button type='submit' class="btn btn-success mt-3">Upload</button>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!--Modal for banner image end -->
+ 
+{%endblock%}

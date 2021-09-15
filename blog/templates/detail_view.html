@@ -1,0 +1,351 @@
+{% extends 'basic.html' %}
+{% block title %} <title>Detail view </title>{% endblock%}
+
+
+{%block css%}
+<style>
+.top-img {
+    width: 100%;
+    height: 326px;
+}
+
+.profile-img{margin-left: 100px ;}
+*{margin: 0; padding: 0;}
+.centerdiv{
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+ }
+
+a{text-decoration: none;}
+
+
+
+.comments-section h6{line-height:28px;margin-bottom: 0px;padding-top: 10px;}
+
+
+/* css for comment option  */
+.comment-form-wrap {
+  clear: both; }
+
+
+.form-ulist .form-list{
+  display: inline;
+} 
+.form-list .comment-title{
+  font-size: 25px;
+}
+.post-title{
+  display: block;
+  margin-left: 80px;
+  }
+.form-group{margin-left: 30px}
+.form-control1 {
+  margin-right: 10px;
+  width: 40%;
+  height: 50px;
+  padding-left: 20px;
+  padding-right: 20px;
+  border-radius: 30px;
+  border: none;
+  background: #fff;
+  border-bottom: 1px solid transparent;
+  border-bottom: 1px solid #ccc; }
+
+
+.btn-form {
+  border-radius: 14px;
+  padding-left: 7px;
+  padding-right: 7px;
+  height: 46px;
+  margin-left: 23px;
+  
+   }
+.btn-ul{list-style-type: none;}
+.btn-list{list-style-type: none; }
+.btn-ul .btn-list{display: inline-block;}
+.btn-list .like-para {
+  margin-right: 142px;
+    width: 48%;
+    height: 48px;
+    padding-left: 27px;
+    padding-right: 20px;
+    border-radius: 35px;
+    background: #fff;
+    /* border-bottom: 1px solid transparent;
+    border-bottom: 1px solid #ccc;  */
+  }
+
+
+.cmt-sec{
+  display: center;
+  margin-left: auto;
+  margin-right: auto;
+}
+.cmtuser-img{
+  display: block;
+  margin-left: 0px;
+  margin-top: 30px;
+  }
+.card{
+  display: block;
+  width: 37rem;
+  margin-left: 0;
+  margin-bottom: 80px;
+  margin-right: 525px;
+    
+}
+.card{
+  position: relative;
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    word-wrap: break-word;
+    background-color: #fff;
+    background-clip: border-box;
+    border: 1px solid rgba(0,0,0,.125);
+    border-radius: 1.00rem;
+}
+.imgcmt-usr{margin-left: 112px;margin-top: 12px;}
+.reply-form{display: block; margin-left: 82px;margin-top: -71px;}
+.replycmt-img{
+    display: block;
+    margin-left: 0px;
+    margin-top: 14px;
+    margin-bottom: 31px;
+}
+.reply-inpt{
+  display: block;
+  margin-left: 88px;
+  margin-top: -77px;
+}
+.btn-ul .btn1{
+  display: block;
+    width: 75px;
+    height: 41.2px;
+    margin-top: 8px;
+    padding-bottom: -18px;
+    border-radius: 6.5px;
+}
+.btn-like{
+  display:block;
+  margin-left: 47px;
+  color:rgb(36, 34, 34);
+
+}
+
+.replies{display: block;margin-left: 64px;}
+    
+.post-category a{text-decoration: underline; text-underline-offset: 5px;color: gray;text-decoration-thickness: 2px}
+/* end css for comment option */
+
+
+
+</style>
+{%endblock%}
+
+<!-- block body start over here.  -->
+{% block body %}
+{% load humanize %}
+{% load extras %}
+
+
+<!-- block message start -->
+{% for message in messages %}
+    <div id="alert" class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+      {{ message }}.
+      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">
+      </button>
+    </div>
+{% endfor %}
+<script>
+var message_ele = document.getElementById("alert");
+setTimeout(function(){ 
+   message_ele.style.display = "none"; 
+}, 3000);
+</script>
+
+<!-- block message end-->
+
+
+<!-- banner section -->
+<div class = "container" width=100% height=30%>
+  <img class = "top-img" src="{{ post.bannerimage.url}}" class="card-img" alt="{{post.title}}">
+</div>
+<!-- end banner section -->
+
+
+<!-- user profile section -->
+<div class = "profile-img pt-4 mb-9">
+  <a href="/publicuserprofile/{{post.user_id.id}}"><img src="/media/profileimage/apj.png" alt="{{ post.user_id.username }}" title="{{ post.user_id.username }}" style="width:60px;height:60px;border-radius: 30px;" ></a>
+    <!-- <a href="/publicuserprofile/{{post.user_id.id}}"><b> <img src="/static/img/user.png" alt="{{ post.user_id.username }}" title="Posted by {{ post.user_id.username}}" /></b></a><span class="user-name">{{post.user_id.username}}</span> -->
+  <!-- </a> <h5>{{post.user_id.username}}</h5><br>
+  <h5><b><span>Posted On: {{post.created_on|date:"M, d, Y"}}</span></b></h5> -->
+  <div><b>{{post.user_id.username}}</b></div>
+  <div><b>Posted On: {{post.created_on|date:"M, d, Y"}}</b></div>
+  <div class="post-category"><a href="{% url 'post' post.category %}">{{post.category|capfirst}}</a></div>
+</div>
+<!-- user.userprofile.userprofileimg.url -->
+<!-- user profile section end -->
+
+
+
+
+
+<br>
+<br>
+<br>
+<hr>
+<br>
+
+
+
+<!-- blog detail start -->
+<div class="container text-left">
+  <div class = "blog-title mb-9 text-center">
+    <h2><b>{{post.title|capfirst }}</b><h2>
+  </div>
+  <div class="blog-content">
+    <label><b>Content:</b></label>
+    {{post.content|safe}}
+  </div>
+</div>
+<!-- blog detail end -->
+<br>
+<br>
+<hr>
+
+<!--form comment start over here. -->
+    <div class="pt-3">
+    {% if user.is_authenticated %} 
+      <div class="post-title"><h3>{{post.title}}</h3></div>
+      <!--comment form start over here-->
+      
+      <div class="comment-form-wrap pt-3">
+        <form method="POST" class="pt-3 " action="/postComment">
+           {% csrf_token %}
+           <div class="form-group">
+             <ul class="form-ulist">
+                <div class="form-list">
+                  <label for="message" class="comment-title">{{comments.count}} comments</label>
+                </div>
+                <li class="form-list">
+                 <div class="cmtuser-img">
+                   <a href="{% url 'userprofile' %}"><img src="{{user.userprofile.userprofileimg.url}}" alt="{{ user.username }}" title={{ user.username }} style="width:50px;height:50px;border-radius:45px;"></a>
+                 </div>
+                </li>
+                <li class="form-list">
+                  <input type="text" name="comment" id="message" cols="30" rows="3" class="form-control1" placeholder="Add a public comment...">
+                  <input type="hidden" name="postSno" value="{{post.id}}">
+                  <input type="hidden" name="parentSno" value="">
+                </li>
+              </ul>
+           </div>
+           <div class="form-group">
+             <ul class="btn-ul">
+               <li class="btn-list"><input type="submit" value="Post Comment" class="btn-form btn-success"></li>
+               <li class="btn-list">
+                 <a class="btn-like">
+                    <!-- {{total_likes}}
+                   <form action="like_post" method="post">
+                      {% if is_liked %}
+                        <button type="submit" name="post_id" value="{{post.id}}" class="btn btn-danger">Dislike </button>
+                      {% else %}
+                        <button type="submit" name="post_id" value="{{post.id}}" class="btn btn-success">like </button>
+                      {% endif %}
+                    </form> -->
+                 </a>
+                </li>
+               <!-- <li class="btn-list"><p class="like-para py-3 my-3"> {{post.view}} views</p></li> -->
+              </ul>
+              <hr>
+           </div>
+        </form>
+      </div>
+      {% else %}
+        <h6>Please login for comment...</h6>
+      {% endif %}
+      <!--comment form end over here.-->  
+      
+      <!--comment view start-->
+      {%for comment in comments%}
+      <div class="main-card">
+        <div class="row">
+          <div class="col">
+            <img src="/static/img/user.png" class="imgcmt-usr" alt="{{ comment.user }}" title={{ comment.user }} style="width:50px;height:50px;border-radius:45px;"> 
+          </div>
+          <div class="col">
+            <div class="card">
+              <div class="card-body">
+                <h5 class="card-title">{{comment.user}}  ({{comment.timestamp|naturaltime}})</h5>
+                <h6 class="card-subtitle mb-2 text-muted">{{comment.timestamp}}</h6>
+                <p class="card-text">{{comment}}</p>
+                <a href="#" class="card-link mx-3"></a>
+                <a class="mx-3">
+                  {% if user.is_authenticated %}
+                    <button class="btn bg-gray text-dark" type="button" data-bs-toggle="collapse" data-bs-target="#replyexamplt{{comment.sno}}" aria-expanded="false" aria-controls="replyexamplt{{comment.sno}}">
+                        Reply
+                    </button>
+                  {%else %}
+                    <!-- <button class="btn bg-gray text-dark" type="button"  data-bs-toggle="modal" data-bs-target="#loginModal" aria-expanded="false"> -->
+                      Reply(Login for reply)
+                    </button>
+                  {% endif %}
+                </a>  
+              </div>  
+            </div>
+              <!--reply model start-->
+
+              <div class="collapse" id="replyexamplt{{comment.sno}}">
+                <div class="reply-form">
+                  <form method="POST" class="pt-3" action="/postComment">
+                    {% csrf_token %}
+                     <div class="row">
+                       <div class="col-md-1">
+                         <div class="replycmt-img">
+                           <img src="/static/img/user.png" alt="{{user.username}}" title={{ user.username }} style="width:50px;height:50px;border-radius:45px;"> 
+                         </div>
+                         </div> 
+                         <div class="reply-inpt col-md-11">
+                           <input type="text" name="comment" id="message" cols="30" rows="3" class="form-control1" placeholder="Add a public reply...">
+                           <input type="hidden" name="parentSno" value="{{comment.sno}}">
+                           <input type="hidden" name="postSno" value="{{post.id}}">
+                           <div class="form-group">
+                             <ul class="btn-ul">
+                               <li class="btn-list"><input type="submit" value="Reply" class="btn1 btn-success"></li>
+                             </ul>
+                           </div>
+                          </div>   
+                      </div> 
+                  </form>        
+                </div>
+              </div>
+                <div class="replies ">
+                    {% for reply in replyDict|get_val:comment.sno %}
+                    <div class="row my-2">
+                        <div class="col-md-1 ">
+                            <img src="/static/img/user.png" alt="{{user.username}}" title={{ user.username }} style="width:50px;height:50px;border-radius:45px;">
+                        </div>
+                        <div class="col-md-11">
+                            <div class="col-md-11 ">
+                                <b> {{reply.user.username}} </b> <span class="badge text-dark ">({{reply.timestamp|naturaltime}})</span>
+                                <div><h6 class="card-subtitle mb-2 text-muted pt-2" style="font-size: 12px;">{{reply.timestamp}}</h6></div>
+                                
+                                <div><p>{{reply.comment}}</p></div>
+                            </div>
+                            <br>
+                        </div>
+                    </div>
+                    {% endfor %}
+              <hr>
+            <!--reply model end-->
+            </div>       
+        </div>
+      </div>
+      {% endfor%}
+      <!--comment view end-->
+      
+    </div>
+  <!--comment end.-->
+{% endblock %}
+<!-- end body block -->

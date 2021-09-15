@@ -1,0 +1,25 @@
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Subject: Password Reset Requested
+From: BT1876s@SK
+To: shubhanesh.balj@gmail.com
+Date: Mon, 16 Aug 2021 06:20:23 -0000
+Message-ID: <162909482379.9609.14150055172240944592@devashish-H310M-S2>
+
+
+Hello,
+
+We received a request to reset the password for your account for this email address. To initiate the password reset process for your account, click the link below.
+
+http://127.0.0.1:8000/reset/NA/5t8-96ee8ffcea46bbe5a51d/
+
+This link can only be used once. If you need to reset your password again, please visit http://127.0.0.1:8000 and request another reset.
+
+If you did not make this request, you can simply ignore this email.
+
+Sincerely,
+The Website Team
+
+
+-------------------------------------------------------------------------------

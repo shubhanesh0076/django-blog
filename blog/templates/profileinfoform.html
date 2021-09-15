@@ -1,0 +1,311 @@
+{%extends 'basic.html'%}
+{%block css%}
+<style>
+    body{background: rgb(231, 230, 230);} 
+    .inner-left{
+        
+        width: 800px;
+        border: 1px solid white;
+        padding: 50px;
+        margin: 20px;
+        background-color: white; 
+        border-radius: 5px;
+        text-decoration: darkgray;
+        /* border-collapse: separate; */
+        /* border-spacing: 40px; */
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+        /* width: 40%; */
+
+        }
+    .btn{margin-left: auto;
+         margin-right: auto;
+         display: block;        
+    }
+
+    
+        
+</style>
+{%endblock%}
+
+
+
+
+{%block body %}
+<section class = "formsection my-5 text-dark">
+    <!-- main div satrt -->
+  <div class="main-div">
+      <!-- container start -->
+    <div class = "container">
+        <!-- row start -->
+        <div class = "row">
+            <!-- col 70 start  -->
+      <div class="col-70 left-sec">
+        <h2 class = "text-center ">User Information Form(Hello {{user.username}})</h2>
+        <!-- form start over here -->
+        <form action="/profileinfoform" method="POST">   
+          {% csrf_token %}   
+        <!-- class inner left start over here... -->
+        <div class="inner-left">
+            
+          <h4 class ="proheading pt-sm-1">
+              <i class="fa fa-question-circle"></i> 
+              Profile Info
+          </h4>
+          <hr>
+
+          <div class="inner-form">
+          <div class="form-group mb-3">
+            <label for="firstname" class="form-label">First Name: </label>
+            <input type="text" value="{{request.user.first_name}}" class="form-control" id="firstname" aria-describedby="nameHelp" placeholder="First Name" name="firstname">  
+          </div>
+          <div class="form-group mb-3">
+          <label for="middlename" class="form-label">Middle Name: </label>
+            <input value="{{profileinfoform.middlename}}" type="text" class="form-control" id="middlename" placeholder="Middle Name" name="mname">
+          </div>
+
+         <div class="form-group mb-3">
+           <label for="lastname" class="form-label">Last Name: </label>
+           <input value="{{request.user.last_name}}" type="text" class="form-control" id="lastname" placeholder="Last Name" name="lname">
+         </div>
+         <!-- <div class="form-group mb-3">
+           <label for="email" class="form-label">Email Id: </label>
+           <input type="email" class="form-control" id="email" placeholder="Email Id" name="email">
+         </div> -->
+         <div class="form-group mb-3">
+           <label for="phoneno" class="form-label">Phone No: </label>
+           <input type="number" value="{{profileinfoform.phoneno1}}" class="form-control" id="phoneno" placeholder="Phone No" name="pno">
+         </div>
+         <!-- <div class="form-group mb-3">
+           <label for="middlename" class="form-label">Middle Name: </label>
+           <input type="text" class="form-control" id="middlename" placeholder="Middle Name" name="mname">
+         </div> -->
+         <div class="form-group mb-3">
+           <p>Select Gender : </p> 
+             <input type="radio" id="male" name="gender" value="male" class="user-valid valid">
+             <label for="male">Male</label>
+             <input type="radio" id="female" name="gender" value="female" class="user-valid valid">
+             <label for="female">Female</label>
+         </div>
+         <div class="form-group mb-3">
+           <label for="address" class="form-label">Address: </label>
+           <input value="{{profileinfoform.address}}" type="text" class="form-control" id="address" placeholder="Your Address" name="address">
+         </div>
+         <div class="form-group mb-3">
+           <label for="country" class="form-label">Country: </label>
+           <input type="text" value="{{profileinfoform.country}}" class="form-control" id="country" placeholder="Country" name="country">
+         </div>
+         <div class="form-group mb-3">
+           <label for="state" class="form-label">State: </label>
+           <input type="text" value="{{profileinfoform.state}}" class="form-control" id="state" placeholder="State" name="state">
+         </div>
+         <div class="form-group mb-3">
+           <label for="city" class="form-label">City/Village: </label>
+           <input type="text" value="{{profileinfoform.city}}" class="form-control" id="city" placeholder="City/Village" name="city">
+         </div>
+         <div class="form-group mb-3">
+          <label for="pincode" class="form-label">Pincode: </label>
+          <input type="number" value="{{profileinfoform.pincode}}" class="form-control" id="pincode" placeholder="Pincode" name="pincode">
+        </div>
+
+         <div class="form-group mb-3">
+           <label>Birthday (DOB): </label>
+           <input type="date" value="{{profileinfoform.dob}}" name="dob" placeholder="D.O.B." required="" class="user-invalid valueMissing">
+            {{profileinfoform.dob}}
+         </div>
+         <div class="form-group mb-3">
+           <label for="bout" class="form-label">About: </label>
+           <input type="textarea" value="{{profileinfoform.about}}" class="form-control" id="about" placeholder="about" name="about">
+         </div>
+        </div>
+        </div>
+        <!-- class inner left 1 end over here -->
+
+
+        
+        <!-- class inner left 2 start over here -->
+        <div class = "inner-left">
+            <h4 class = "proheading"> <i class="fa fa-question-circle"></i> Education and Employment </h4>
+            <hr>
+            <div class="inner-form">
+                <div class="form-group mb-3">
+                  <h4 class="ed-heading mb-3 pt-4">Education(Graduation)</h4>
+                  <label for="university" class="form-label">University/College: </label>
+                  <input type="text" value="{{profileinfoform.university}}" class="form-control" id="university" aria-describedby="universityHelp" placeholder="University/College" name="university">  
+                </div>
+                <div class="form-group mb-3 pt-2">
+                   
+                  <label>Start Date : </label>
+                  <input type="date" value="{{profileinfoform.startdate}}" name="startdate" placeholder="Start Date" required="" class="user-invalid valueMissing mx-3">
+        
+                  <label>Completion Date : </label>
+                  <input type="date" value="{{profileinfoform.completiondate}}" name="completiondate" placeholder="Completion Date" required="" class="user-invalid valueMissing mx-3">
+                </div>
+                <div class="form-group mb-3">
+                    <label for="city" class="form-label">City: </label>
+                    <input type="text" value="{{profileinfoform.unicity}}" class="form-control" id="city" aria-describedby="cityHelp" placeholder="City" name="unicity">  
+                </div>
+
+
+
+                <div class="form-group mb-3">
+                    <h4 class="ed-heading mb-3 pt-4">Education(12th)</h4>
+                    <label for="12college" class="form-label">College: </label>
+                    <input type="text" value="{{profileinfoform.college}}" class="form-control" id="university" aria-describedby="12collegeHelp" placeholder="College" name="college">  
+                  </div>
+                  <div class="form-group mb-3 pt-2">
+                     
+                    <label>Start Date : </label>
+                    <input type="date" value="{{profileinfoform.collegestartdate}}" name="collegestartdate" placeholder="Start Date" required="" class="user-invalid valueMissing mx-3">
+          
+                    <label>Completion Date : </label>
+                    <input type="date" value="{{profileinfoform.collegecompletiondate}}" name="collegecompletiondate" placeholder="Completion Date" required="" class="user-invalid valueMissing mx-3">
+                  </div>
+                  <div class="form-group mb-3">
+                      <label for="city" class="form-label">City: </label>
+                      <input type="text" value="{{profileinfoform.collegecity}}" class="form-control" id="city" aria-describedby="cityHelp" placeholder="City" name="collegecity">  
+                  </div>
+
+
+                  <div class="form-group mb-3">
+                    <h4 class="proheading mb-3 pt-4">Education(10th)</h4>
+                    <label for="School" class="form-label">College/School: </label>
+                    <input type="text" value="{{profileinfoform.school}}" class="form-control" id="school" aria-describedby="schoolHelp" placeholder="School" name="school">  
+                  </div>
+                  <div class="form-group mb-3 pt-2">
+                     
+                    <label>Start Date : </label>
+                    <input type="date" value="{{profileinfoform.schoolstartdate}}" name="schoolstartdate" placeholder="Start Date" required="" class="user-invalid valueMissing mx-3">
+          
+                    <label>Completion Date : </label>
+                    <input type="date" value="schoolcompletiondate" name="schoolcompletiondate" placeholder="Completion Date" required="" class="user-invalid valueMissing mx-3">
+                  </div>
+                  <div class="form-group mb-3">
+                      <label for="city" class="form-label">City: </label>
+                      <input type="text" value="{{profileinfoform.schoolcity}}" class="form-control" id="city" aria-describedby="cityHelp" placeholder="City" name="schoolcity">  
+                  </div>
+
+
+
+                  <div class="form-group mb-3">
+                    <h4 class="proheading mb-3 pt-4">Employment</h4>
+                    <label for="company" class="form-label">Company Name: </label>
+                    <input type="text" value="{{profileinfoform.company}}" class="form-control" id="company" aria-describedby="companyHelp" placeholder="Company Name" name="company">  
+                  </div>
+                  <div class="form-group mb-3">
+                    <label for="experience" class="form-label">Experience(In Year): </label>
+                    <input type="number" value="{{profileinfoform.experience}}" class="form-control" id="experience" aria-describedby="experienceHelp" placeholder="Experience" name="experience">  
+                  </div>
+                  <div class="form-group mb-3">
+                      <label for="city" class="form-label">City: </label>
+                      <input type="text" value="{{profileinfoform.companycity}}" class="form-control" id="city" aria-describedby="cityHelp" placeholder="City" name="companycity">  
+                  </div>
+                  <div class="form-group mb-3">
+                    <label for="skills" class="form-label">Technical Skills: </label>
+                    <input type="text" value="{{profileinfoform.technicalskills}}" class="form-control" id="skills" aria-describedby="skillsHelp" placeholder="Technical Skills(i.e python, java, ML etc.)" name="skills">  
+                </div>
+
+                
+            </div>
+        </div>
+        <!-- class inner left end over here -->
+
+
+        <!-- class inner 3 start over here -->
+        <div class = "inner-left">
+            <h4 class = "proheading"> <i class="fa fa-question-circle"></i> Hobbies </h4>
+            <hr>
+            <div class = "inner-form">
+                <div class="form-group mb-3">
+                    <label for="hobbies" class="form-label">Hobbies: </label>
+                    <input type="text" values="{{profileinfoform.hobbies}}" class="form-control" id="hobbies" aria-describedby="hobbiesHelp" placeholder="Hobbies" name="hobbies">  
+                  </div>
+                  <div class="form-group mb-3">
+                    <label for="abouthobbies" class="form-label">Describe About Your Hobbies(In Brief): </label>
+                    <input type="textarea" value="{{profileinfoform.abouthobbies}}" class="form-control" id="abouthobbies" aria-describedby="abouthobbiesHelp" placeholder="Brief intro About youHobbies" name="abouthobbies">  
+                  </div>
+
+            </div>
+ 
+        </div>
+        <!-- class inner end over here -->
+
+
+
+        <!-- class inner left 4 start over here -->
+        <div class = "inner-left">
+            <h4 class = "proheading"> <i class="fa fa-envelope"></i> Contact Info </h4>
+            <hr>
+            <div class = "inner-form">
+                <div class="form-group mb-3">
+                    <label for="emailid" class="form-label">E-mail Id: </label>
+                    <input type="email" value="{{request.user.email}}" class="form-control" id="emailid" aria-describedby="emailid" placeholder="xyz1234@gmail.com" name="emailid">  
+                  </div> 
+                  <div class="form-group mb-3">
+                    <label for="contactno" class="form-label">Contact No: </label>
+                    <input type="number" value="{{profileinfoform.phoneno2}}" class="form-control" id="contactno" aria-describedby="contactno" placeholder="Contact No" name="contactno">  
+                  </div> 
+                  <div class="form-group mb-3">
+                    <label for="address" class="form-label">Permanent Address: </label>
+                    <input type="text" value="{{profileinfoform.permanentaddress}}" class="form-control" id="address" aria-describedby="address" placeholder="Your Address" name="address">  
+                  </div> 
+                  <div class="form-group mb-3">
+                    <label for="website" class="form-label">Website : </label>
+                    <input type="text" value="{{profileinfoform.website}}" class="form-control" id="website" aria-describedby="website" placeholder="https://www.xyz.com" name="website">  
+                  </div> 
+            </div>
+        </div>
+        <!-- class inner left 4 end ove here -->
+
+
+
+        <!-- class inner left 5 satrt over here -->
+        <div class = "inner-left">
+            <h4 class = "proheading"> <i class="fa fa-envelope"></i> Social Media Info </h4>
+            <hr>
+            <div class="form-group mb-3">
+              <label for="facebook" class="form-label">Facebook : </label>
+              <input type="text" value="{{profileinfoform.facebook}}" class="form-control" id="facebook" aria-describedby="facebook" placeholder="https://www.xyz.com" name="facebook">  
+            </div> 
+            <div class="form-group mb-3">
+              <label for="twitter" class="form-label">Twitter : </label>
+              <input type="text" value="{{profileinfoform.twitter}}" class="form-control" id="twitter" aria-describedby="twitter" placeholder="https://www.xyz.com" name="twitter">  
+            </div>
+            <div class="form-group mb-3">
+              <label for="youtube" class="form-label">Youtube : </label>
+              <input type="text" value="{{profileinfoform.youtube}}" class="form-control" id="youtube" aria-describedby="youtube" placeholder="https://www.xyz.com" name="youtube">  
+            </div>
+            <div class="form-group mb-3">
+              <label for="linkedin" class="form-label">LinkedIn : </label>
+              <input type="text" value="{{profileinfoform.linkedin}}" class="form-control" id="linkedin" aria-describedby="linkedin" placeholder="https://www.xyz.com" name="linkedin">  
+            </div>   
+
+        </div>
+        <!-- class inner left 5 end over here -->
+        <div class = "btn text-lg-center">
+          <button type="submit" class="btn btn-success mb-3 ">Save Change</button>
+        </div>
+       </form>
+       <!-- form end over here -->
+     </div>
+     <!-- end col 70 -->
+     </div>
+     <!-- end row -->
+    </div>
+    <!-- container close -->
+ </div>
+ <!-- main div close -->
+</section>
+
+
+
+<!-- <i class="fas fa-cloud"></i> -->
+
+
+
+
+
+
+
+{%endblock%}

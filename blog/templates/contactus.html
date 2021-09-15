@@ -1,0 +1,79 @@
+{%extends 'basic.html' %}
+{% block css %}
+  <style>
+    .row{--bs-gutter-x: 0rem;}
+    .main-div {
+      margin-top: 50px;  
+    }
+    .col-img{margin-left: 100px;}
+    
+  </style>
+  {% endblock %}
+{% block body %}
+<div class="main-div">
+  <div class="container">
+{% for message in messages %}
+    <div id="alert" class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+      {{ message }}.
+      <button type="button" class="close" data-bs-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+{% endfor %}
+<div class="row">
+  <div class="col-md-5">
+    <div class="contact-img">
+      <img src="/static/img/contactimg.webp" class="img-fluid">
+    </div>
+  </div>
+    <!-- Modal for contact us form -->
+  <div class="col-md-7">
+    <div id="staticBackdrop" class="contact-modal">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header text-dark">
+            <h5 class="modal-title" id="staticBackdropLabel">Contact Us</h5>
+          </div>
+          <div class="modal-body">
+          <!-- form start over here....... -->
+            <form method="POST" action="contactus"  onsubmit="return contactus()">
+              {% csrf_token %}
+              <div class="mb-3">
+                <label for="exampleInputName" class="form-label">Name: </label>
+                <input type="text" class="form-control" id="exampleInputName" aria-describedby="emailHelp" name="name" placeholder="Name">
+                <span id="contactname" class="form-text text-danger"></span>
+              </div>
+              <div class="mb-3">
+                <label for="exampleInputEmail" class="form-label">Email Id: </label>
+                <input type="text" class="form-control" id="exampleInputEmail1" name="email" placeholder="Email Id">
+                <span id="email1" class="text-danger"></span>
+              </div>
+              <div class="mb-3">
+                <label for="exampleInputContactno" class="form-label">Contact No: </label>
+                <input type="text" class="form-control" id="exampleInputContactno" name="contactno" placeholder="Contact No">
+                <span id="contactno1" class="text-danger"></span>
+              </div>
+              <div class="mb-3">
+                <label for="exampleInputContent" class="form-label">Content: </label>
+                <textarea class="form-control" id="exampleInputTextarea" name="content" placeholder="Content"></textarea>
+                <span id="message" class="text-danger"></span>
+              </div>
+            
+              <div class="form-btn">    
+                <button type="submit" class="btn btn-success">Submit</button>
+                <a href = "/" type="button" class="btn btn-success mx-3">Back To Home</a>
+              </div>
+            </form>
+          <!-- form end over here........ -->
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+</div>
+  
+  <!-- end modal over here....... -->
+  
+{% endblock %}

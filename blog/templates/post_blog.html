@@ -1,0 +1,35 @@
+{% extends 'basic.html' %} 
+{% block title %} <title>Post Blog</title> {% endblock title %} 
+
+{% block body %}
+{% load crispy_forms_tags %}  
+
+{% for message in messages %}
+    <div id="alert" class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+      {{ message }}.
+      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+{% endfor %}
+<script>
+  var message_ele = document.getElementById("alert");
+  setTimeout(function(){ 
+     message_ele.style.display = "none"; 
+  }, 3000);
+</script> 
+  
+
+
+<div class="edit_form text-center"><h1>Post Blog</h1></div>
+<div class="container text-dark pt-4">
+  <form class = "form-group" action="post_blog", method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ form.media}}  
+    {{ form|crispy }} 
+    <div class="form-group">
+      <button class="btn btn-success mt-3" type="submit" value="submit">Post</button>
+    </div>
+    <!-- <input type="hodden" accept="myfile" id="myfile3" name="image" value="{{post.bannerimage.url}}" onchange="loadFile3(event)"  > -->
+  </form>
+</div>
+
+{% endblock body %} 
